@@ -65,8 +65,14 @@ function App(props: { id: string }) {
 
   return (
     <div className="App" style={{ backgroundColor: status.color }}>
+      <p className="status" onClick={cycle}>
+        {status.message}
+      </p>
+      <p className="instructions">
+        Tap to change status. Scan QR code to mirror status on another device.
+      </p>
+
       <QRCode value={`https://meeting-status.netlify.app/?mirror=${id}`} />
-      <p onClick={cycle}>{status.message}</p>
     </div>
   );
 }

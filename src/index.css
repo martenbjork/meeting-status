@@ -1,5 +1,8 @@
 * {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
@@ -9,21 +12,29 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 10vw;
-  line-height: 100vh;
   color: white;
   user-select: none;
   cursor: pointer;
   text-align: center;
+  height: 100vh;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.status {
+  font-size: 10vw;
+  height: 100vh;
+  line-height: 100vh;
+}
+
+.instructions {
+  position: absolute;
+  bottom: 2em;
+  left: 2em;
+  font-weight: 500;
 }
 
 canvas {
   position: absolute;
-  bottom: 20px;
-  right: 20px;
+  bottom: 2em;
+  right: 2em;
+  mix-blend-mode: multiply;
 }
