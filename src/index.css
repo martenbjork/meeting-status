@@ -39,4 +39,12 @@ canvas {
   bottom: 2em;
   right: 2em;
   mix-blend-mode: multiply;
+  transform-origin: 100% 100%;
+  transition: all 0.25s ease-in-out;
+  transform: scale(0.5);
+  z-index: 1;
+}
+
+canvas:hover {
+  transform: scale(1);
 }
