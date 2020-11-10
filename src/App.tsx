@@ -8,7 +8,7 @@ function App() {
   let isMirroring = false;
 
   const urlParams = new URLSearchParams(window.location.search);
-  const mirrorId = urlParams.get("action");
+  const mirrorId = urlParams.get("mirrorId");
 
   if (mirrorId) {
     id = mirrorId;

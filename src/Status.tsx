@@ -76,7 +76,7 @@ function App(props: { id: string; isMirroring: boolean }) {
       </p>
 
       {!isMirroring && (
-        <QRCode value={`https://meeting-status.netlify.app/?mirror=${id}`} />
+        <QRCode value={`https://meeting-status.netlify.app/?mirrorId=${id}`} />
       )}
     </div>
   );
