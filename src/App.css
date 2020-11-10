@@ -1,4 +1,7 @@
 .App {
   height: 100vh;
   transition: all 0.1s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
