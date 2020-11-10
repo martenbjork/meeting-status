@@ -21,15 +21,15 @@ var db = firebase.database();
 
 const statuses = [
   {
-    color: "green",
+    color: "#006737",
     message: "No meeting",
   },
   {
-    color: "orange",
+    color: "#b58600",
     message: "Audio call",
   },
   {
-    color: "red",
+    color: "#b50019",
     message: "Video call",
   },
 ];
