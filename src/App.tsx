@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import firebase from "firebase";
 import "firebase/database";
@@ -13,15 +13,18 @@ var firebaseConfig = {
   appId: "1:972106182315:web:e18f2d708fe672ebb6d1ee",
 };
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 var db = firebase.database();
 
 function App() {
   const [state, setState] = useState("Offline");
+  const ref = db.ref("users/1");
 
   const updateState = (state: string) => {
-    db.ref("users/1").set({
+    ref.set({
       state,
     });
     setState(state);
@@ -34,6 +37,13 @@ function App() {
       updateState("In a meeting");
     }
   };
+
+  useEffect(() => {
+    ref.on("value", function (snapshot) {
+      const val = snapshot.val();
+      setState(val.state);
+    });
+  }, []);
 
   return (
     <div className="App">
