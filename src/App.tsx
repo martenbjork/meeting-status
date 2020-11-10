@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import firebase from "firebase";
 import "firebase/database";
@@ -43,7 +43,7 @@ function App() {
       const val = snapshot.val();
       setState(val.state);
     });
-  }, []);
+  });
 
   return (
     <div className="App">
