@@ -19,35 +19,52 @@ if (!firebase.apps.length) {
 
 var db = firebase.database();
 
+const statuses = [
+  {
+    color: "green",
+    message: "No meeting",
+  },
+  {
+    color: "orange",
+    message: "Audio call",
+  },
+  {
+    color: "red",
+    message: "Video call",
+  },
+];
+
 function App() {
-  const [state, setState] = useState("Offline");
+  const [currentStatus, setCurrentStatus] = useState(0);
   const ref = db.ref("users/1");
 
-  const updateState = (state: string) => {
-    ref.set({
-      state,
-    });
-    setState(state);
+  const updateStatus = (status: number) => {
+    ref.set({ status });
+    setCurrentStatus(status);
   };
 
   const cycle = () => {
-    if (state === "In a meeting") {
-      updateState("Offline");
-    } else {
-      updateState("In a meeting");
+    let nextStatus = currentStatus + 1;
+    if (nextStatus > statuses.length - 1) {
+      nextStatus = 0;
     }
+    updateStatus(nextStatus);
   };
 
   useEffect(() => {
     ref.on("value", function (snapshot) {
       const val = snapshot.val();
-      setState(val.state);
+      if (val && typeof val.status === "number") {
+        setCurrentStatus(val.status);
+      }
     });
   });
 
+  const status = statuses[currentStatus] || statuses[0];
+
   return (
-    <div className="App">
-      <p onClick={cycle}>{state}</p>
+    <div className="App" style={{ backgroundColor: status.color }}>
+      <p onClick={cycle}>{status.message}</p>
     </div>
   );
 }

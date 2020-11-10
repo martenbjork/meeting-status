@@ -11,6 +11,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 10vw;
   line-height: 100vh;
+  color: white;
+  user-select: none;
+  cursor: pointer;
 }
 
 code {
