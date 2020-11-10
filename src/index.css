@@ -32,6 +32,10 @@ body {
   font-weight: 500;
 }
 
+.instructions.mirroring {
+  opacity: 0.5;
+}
+
 canvas {
   position: absolute;
   bottom: 2em;

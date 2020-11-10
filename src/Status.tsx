@@ -34,8 +34,8 @@ const statuses = [
   },
 ];
 
-function App(props: { id: string }) {
-  const { id } = props;
+function App(props: { id: string; isMirroring: boolean }) {
+  const { id, isMirroring } = props;
   const [currentStatus, setCurrentStatus] = useState(0);
   const ref = db.ref("users/" + id);
 
@@ -62,17 +62,22 @@ function App(props: { id: string }) {
   });
 
   const status = statuses[currentStatus] || statuses[0];
+  const instructions = isMirroring
+    ? "Mirroring status from your other device."
+    : "Tap to change status. Scan QR code to mirror status on another device.";
 
   return (
     <div className="App" style={{ backgroundColor: status.color }}>
       <p className="status" onClick={cycle}>
         {status.message}
       </p>
-      <p className="instructions">
-        Tap to change status. Scan QR code to mirror status on another device.
+      <p className={["instructions", isMirroring && "mirroring"].join(" ")}>
+        {instructions}
       </p>
 
-      <QRCode value={`https://meeting-status.netlify.app/?mirror=${id}`} />
+      {!isMirroring && (
+        <QRCode value={`https://meeting-status.netlify.app/?mirror=${id}`} />
+      )}
     </div>
   );
 }
