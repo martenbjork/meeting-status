@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import firebase from "firebase";
 import "firebase/database";
@@ -14,7 +13,7 @@ var firebaseConfig = {
   appId: "1:972106182315:web:e18f2d708fe672ebb6d1ee",
 };
 
-var app = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 var db = firebase.database();
 
@@ -22,7 +21,7 @@ function App() {
   const [state, setState] = useState("Offline");
 
   const updateState = (state: string) => {
-    firebase.database().ref("users/1").set({
+    db.ref("users/1").set({
       state,
     });
     setState(state);
