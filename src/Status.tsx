@@ -67,10 +67,12 @@ function App(props: { id: string; isMirroring: boolean }) {
     : "Tap to change status. Scan QR code to mirror status on another device.";
 
   return (
-    <div className="App" style={{ backgroundColor: status.color }}>
-      <p className="status" onClick={cycle}>
-        {status.message}
-      </p>
+    <div
+      className="App"
+      style={{ backgroundColor: status.color }}
+      onClick={cycle}
+    >
+      <p className="status">{status.message}</p>
       <p className={["instructions", isMirroring && "mirroring"].join(" ")}>
         {instructions}
       </p>
