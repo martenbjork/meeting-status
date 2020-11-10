@@ -1,72 +1,29 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import firebase from "firebase";
-import "firebase/database";
-
-var firebaseConfig = {
-  apiKey: "AIzaSyAYuIsZwEi5jYRZG4mh-Ram-1PjQybLzys",
-  authDomain: "meeting-status-d0db6.firebaseapp.com",
-  databaseURL: "https://meeting-status-d0db6.firebaseio.com",
-  projectId: "meeting-status-d0db6",
-  storageBucket: "meeting-status-d0db6.appspot.com",
-  messagingSenderId: "972106182315",
-  appId: "1:972106182315:web:e18f2d708fe672ebb6d1ee",
-};
-
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-
-var db = firebase.database();
-
-const statuses = [
-  {
-    color: "green",
-    message: "No meeting",
-  },
-  {
-    color: "orange",
-    message: "Audio call",
-  },
-  {
-    color: "red",
-    message: "Video call",
-  },
-];
+import Status from "./Status";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
-  const [currentStatus, setCurrentStatus] = useState(0);
-  const ref = db.ref("users/1");
+  let id: string;
 
-  const updateStatus = (status: number) => {
-    ref.set({ status });
-    setCurrentStatus(status);
-  };
+  const urlParams = new URLSearchParams(window.location.search);
+  const mirrorId = urlParams.get("action");
 
-  const cycle = () => {
-    let nextStatus = currentStatus + 1;
-    if (nextStatus > statuses.length - 1) {
-      nextStatus = 0;
+  if (mirrorId) {
+    id = mirrorId;
+  } else if (window.localStorage) {
+    let storedId = window.localStorage.getItem("id");
+    if (storedId) {
+      id = storedId;
+    } else {
+      id = uuidv4();
+      window.localStorage.setItem("id", id);
     }
-    updateStatus(nextStatus);
-  };
+  } else {
+    return <p>Please enable localStorage</p>;
+  }
 
-  useEffect(() => {
-    ref.on("value", function (snapshot) {
-      const val = snapshot.val();
-      if (val && typeof val.status === "number") {
-        setCurrentStatus(val.status);
-      }
-    });
-  });
-
-  const status = statuses[currentStatus] || statuses[0];
-
-  return (
-    <div className="App" style={{ backgroundColor: status.color }}>
-      <p onClick={cycle}>{status.message}</p>
-    </div>
-  );
+  return <Status id={id} />;
 }
 
 export default App;
