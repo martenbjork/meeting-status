@@ -1,3 +1,4 @@
 .App {
   height: 100vh;
+  transition: all 0.1s linear;
 }
